@@ -1,0 +1,74 @@
+{% extends 'layout/master.html' %}
+
+{% block title %}
+  Coming Soon - Start Bootstrap Theme
+{% endblock %}
+
+{% block content %}
+  <div>
+    <h1 class="fst-italic lh-1 mb-4">Our Website is Coming Soon</h1>
+    <p class="mb-5">We're working hard to finish the development of this site. Sign up below to receive updates and to be notified when we launch!</p>
+    <!-- * * * * * * * * * * * * * * * -->
+    <!-- * * SB Forms Contact Form * * -->
+    <!-- * * * * * * * * * * * * * * * -->
+    <!-- This form is pre-integrated with SB Forms. -->
+    <!-- To make this form functional, sign up at -->
+    <!-- https://startbootstrap.com/solution/contact-forms -->
+    <!-- to get an API token! -->
+    <form action="{% url 'home-image-annotation' %}" method="post">
+      {% csrf_token %}
+      <!-- Email address input -->
+      <div class="row input-group-newsletter">
+        <div class="mx-auto my-1">
+          <label for="">Choose an image</label>
+        </div>
+        <div class="col">
+          <select name="image_to_annotate" class="form-select" id="" required>
+            {% for image in my_images %}
+              <option value="{{ image.id }}">{{ image.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary" type="submit">Annotate Me!</button>
+        </div>
+      </div>
+    </form>
+
+    <p class="mx-auto my-3 text-center">OR</p>
+
+    <form action="{% url 'home-image-adding' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- Email address input -->
+      <div class="row input-group-newsletter">
+        <div class="mx-auto my-1">
+          <label for="">Add an image</label>
+        </div>
+        <div class="col">
+          <input class="form-control" id="image" type="file" name="image_to_add" required />
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary" type="submit">Add Me!</button>
+        </div>
+      </div>
+      <!-- Submit success message -->
+      <!--  -->
+      <!-- This is what your users will see when the form -->
+      <!-- has successfully submitted -->
+      {% comment %} <div class="d-none" id="submitSuccessMessage">
+        <div class="text-center mb-3 mt-2">
+          <div class="fw-bolder">Form submission successful!</div>To activate this form, sign up at
+          <br />
+          <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+        </div>
+      </div>
+      <!-- Submit error message -->
+      <!--  -->
+      <!-- This is what your users will see when there is -->
+      <!-- an error submitting the form -->
+      <div class="d-none" id="submitErrorMessage">
+        <div class="text-center text-danger mb-3 mt-2">Error sending message!</div>
+      </div> {% endcomment %}
+    </form>
+  </div>
+{% endblock %}

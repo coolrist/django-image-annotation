@@ -1,0 +1,17 @@
+{% extends 'layout/master.html' %}
+
+{% block title %}
+  Coming Soon - Image Adding
+{% endblock %}
+
+{% block content %}
+  <div>
+    <h1 class="fst-italic lh-1 mb-4">Image adding</h1>
+    <img class="img-fluid my-4" src="{{ image_path }}" alt="" width="auto" height="400px" />
+    <form action="{% url 'home-image-annotation' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="image_to_annotate" value="{{ image_id }}" required />
+      <button class="btn btn-primary" type="submit">Annotate me!</button>
+    </form>
+  </div>
+{% endblock %}

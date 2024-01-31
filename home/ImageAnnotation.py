@@ -6,6 +6,9 @@ import io, base64
 from urllib import parse
 
 class ImageAnnotation:
+    """
+    This class allows us to annotate images by enhancing contrast and visualizing data more easily
+    """
 
     __effects = {
         'sequential1' : ['viridis', 'plasma', 'inferno', 'magma', 'cividis'],
@@ -21,19 +24,31 @@ class ImageAnnotation:
         'miscellaneous' : ['flag', 'prism', 'ocean', 'gist_earth', 'terrain', 'gist_stern', 'gnuplot', 'gnuplot2',
                 'CMRmap', 'cubehelix', 'brg', 'gist_rainbow', 'rainbow', 'jet', 'turbo', 'nipy_spectral', 'gist_ncar'],
     }
-
-    def get_effects(self) -> dict:
-        return self.__effects
     
     def __init__(self, image: str) -> None:
         my_image = plt.imread(f"{settings.MEDIA_ROOT}/..{image}")
         self.image = ski.util.img_as_float64(my_image)
 
+    def get_effects(self) -> dict:
+        """
+        This method returns a dictionary of different contrast effects
+        """
+        return self.__effects
+
     def demos(self):
+        """
+        This method returns the original image
+        """
         imgplot = plt.imshow(self.image)
         return self.__render_image(imgplot.figure)
                 
     def pseudocolor(self, effect: str):
+        """
+        This method returns an image with a specific contrast effect
+        -------------------
+        PARAM
+        effect: A specific contrast effect in the dictionary returned by the function self.get_effects()
+        """
         image = self.image[:, :, 0]
 
         imgplot = plt.imshow(image, effect)
@@ -42,11 +57,17 @@ class ImageAnnotation:
         return self.__render_image(imgplot.figure)
     
     def other(self):
+        """
+        This method convert BGR to RGB or vice versa
+        """
         image = self.image[:, :, ::-1]
         imgplot = plt.imshow(image)
         return self.__render_image(imgplot.figure)
     
-    def __render_image(self, image: mfg.Figure) -> str:        
+    def __render_image(self, image: mfg.Figure) -> str:
+        """
+        This method returns the image directory path
+        """      
         fig = image
         buffer = io.BytesIO()
         fig.savefig(buffer, format='png')

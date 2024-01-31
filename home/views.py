@@ -9,6 +9,7 @@ from .models import Image
 from .utils import is_number
 
 # Create your views here.
+
 def homepage(request):
     return render(request, 'homepage.html', {"my_images": Image.objects.all().values()})
 

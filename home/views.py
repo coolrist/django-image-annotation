@@ -55,8 +55,8 @@ def image_annotation(request):
                     for key, x in img_annotation.get_effects().items():
                         graph.append(img_annotation.pseudocolor(random.choice(x)))
                     graph.append(img_annotation.other())
-                except Exception:
-                    print("Something went wrong")
+                except RuntimeError:
+                    print("Something went wrong! You must restart this app 🫠")
                 
                 return render(request, 'image_annotation.html', {"graph": graph})
     

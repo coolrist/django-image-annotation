@@ -4,7 +4,7 @@ from django.db.models import Max
 from django.core.files.storage import FileSystemStorage
 import time, random
 from a0_image_annotation import settings
-from .ImageAnnotation import ImageAnnotation
+from .imageAnnotation import ImageAnnotation
 from .models import Image
 from .utils import is_number
 
@@ -62,6 +62,3 @@ def image_annotation(request):
                 return render(request, 'image_annotation.html', {"graph": graph})
     
     return redirect(reverse('home'))
-
-
-                                

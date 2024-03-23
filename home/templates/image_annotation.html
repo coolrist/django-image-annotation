@@ -1,15 +1,15 @@
 {% extends 'layout/master.html' %}
 
 {% block title %}
-  Coming Soon - Image Annotation
+  Image Annotation - Image Contrast
 {% endblock %}
 
 {% block content %}
-  <div>
-    <h1 class="fst-italic lh-1 mb-4">Image annotation</h1>
-    <div class="container-fluid overflow-auto d-flex ">
+  <div class="p-5 mb-4 bg-light border rounded-3">
+    <h1 class="display-5 fw-bold">Image contrast</h1>
+    <div class="d-flex flex-wrap">
       {% for x in graph %}
-        <img src="data:image/png;base64,{{ x }}" alt="" width="auto" height="400px" />
+        <img src="data:image/png;base64,{{ x }}" alt="" width="50%" height="auto" />
       {% endfor %}
     </div>
   </div>

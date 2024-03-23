@@ -1,48 +1,66 @@
 {% extends 'layout/master.html' %}
 
 {% block title %}
-  Coming Soon - Start Bootstrap Theme
+  Image Annotation - Home
 {% endblock %}
 
 {% block content %}
   <div>
-    <h1 class="fst-italic lh-1 mb-4">Our Website is Coming Soon</h1>
-    <p class="mb-5">We're working hard to finish the development of this site. Sign up below to receive updates and to be notified when we launch!</p>
+    <div class="p-5 mb-4 bg-light rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">Custom jumbotron</h1>
+        <p class="col-md-8 fs-4">Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
+        <button class="btn btn-primary btn-lg" type="button">Example button</button>
+      </div>
+    </div>
 
-    <form action="{% url 'home-image-annotation' %}" method="post">
-      {% csrf_token %}
-      <div class="row input-group-newsletter">
-        <div class="mx-auto my-1">
-          <label for="">Choose an image</label>
-        </div>
-        <div class="col">
-          <select name="image_to_annotate" class="form-select" id="" required>
-            {% for image in my_images %}
-              <option value="{{ image.id }}">{{ image.name }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-primary" type="submit">Annotate Me!</button>
+    <div class="row align-items-md-stretch">
+      <div class="col-md-6 my-2">
+        <div class="h-100 p-5 text-white bg-dark rounded-3">
+          <form action="{% url 'home-image-annotation' %}" method="post">
+            {% csrf_token %}
+            <h2>Choose an image</h2>
+            <div class="my-3">
+              <select name="image_to_annotate" class="form-select" id="" required>
+                {% for image in my_images %}
+                  <option value="{{ image.id }}">{{ image.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <button class="btn btn-outline-light" type="submit">Annotate Me!</button>
+          </form>
         </div>
       </div>
-    </form>
 
-    <p class="mx-auto my-3 text-center">OR</p>
-
-    <form action="{% url 'home-image-adding' %}" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div class="row input-group-newsletter">
-        <div class="mx-auto my-1">
-          <label for="">Add an image</label>
-        </div>
-        <div class="col">
-          <input class="form-control" id="image" type="file" name="image_to_add" required />
-        </div>
-        <div class="col-auto">
-          <button class="btn btn-primary" type="submit">Add Me!</button>
+      <div class="col-md-6 my-2">
+        <div class="h-100 p-5 bg-light border rounded-3">
+          <form action="{% url 'home-image-adding' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2>Add an image</h2>
+            <div class="my-3">
+              <input class="form-control" id="image" type="file" name="image_to_add" required />
+            </div>
+            <button class="btn btn-outline-secondary" type="submit">Add Me!</button>
+          </form>
         </div>
       </div>
-    </form>
+
+      <div class="col-md-6 my-2">
+        <div class="h-100 p-5 text-white bg-danger rounded-3">
+          <form action="{% url 'home-image-removing' %}" method="post">
+            {% csrf_token %}
+            <h2>Remove an image</h2>
+            <div class="my-3">
+              <select name="image_to_remove" class="form-select" id="" required>
+                {% for image in my_images %}
+                  <option value="{{ image.id }}">{{ image.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <button class="btn btn-outline-light" type="submit">Remove Me!</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}

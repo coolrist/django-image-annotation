@@ -5,7 +5,7 @@ import matplotlib.figure as mfg
 import io, base64
 from urllib import parse
 
-class ImageAnnotation:
+class ImageContrast:
     """
     This class allows us to annotate images by enhancing contrast and visualizing data more easily
     """

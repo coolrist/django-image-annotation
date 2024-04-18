@@ -2,13 +2,13 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.db.models import Max
 from django.core.files.storage import FileSystemStorage
-import time, random
 from a0_image_annotation import settings
-from .imageAnnotation import ImageContrast
+from .imageAnnotation import ImageContrast, ObjectDetector
 from .models import Image
 from .utils import is_number
 
-import django.core.files.uploadedfile as dup
+import time, random
+
 # Create your views here.
 
 # Home page function
@@ -47,7 +47,6 @@ def image_adding(request):
             }
             return render(request, 'image_adding.html', context)
             
-    
     return redirect(reverse('home'))
 
 # Image annotation page function
@@ -58,18 +57,22 @@ def image_annotation(request):
         if is_number(image_to_annotate):
             image = Image.objects.filter(id=image_to_annotate)
             
-            if len(image) > 0:        
-                graph, img_contrast = [], ImageContrast(image[0].path)
-
-                try:
-                    graph.append(img_contrast.demos())
+            if len(image) > 0:
+                renderings = []
+                for i in range(len(image)):
+                    contrasting_images = []                    
+                    img_contrast, img_annotated = ImageContrast(image[i].path), ObjectDetector(image[i].path)
+                    
+                    contrasting_images.append(img_contrast.other())                   
                     for key, x in img_contrast.get_effects().items():
-                        graph.append(img_contrast.pseudocolor(random.choice(x)))
-                    graph.append(img_contrast.other())
-                except RuntimeError:
-                    print("Something went wrong! You must restart this app 🫠")
+                        contrasting_images.append(img_contrast.pseudocolor(random.choice(x)))
+
+                    renderings.append({
+                        "main_image": img_contrast.demos(),
+                        "annotated_images": img_annotated.get_annotated_images(),
+                        "contrasting_images": contrasting_images})
                 
-                return render(request, 'image_annotation.html', {"graph": graph})
+                return render(request, 'image_annotation.html', {"renderings": renderings})
     
     return redirect(reverse('home'))
 
@@ -80,7 +83,6 @@ def image_removing (request):
 
         if is_number(image_to_remove):
             image = Image.objects.filter(id=image_to_remove).first()
-            print(image.path)
 
             fs = FileSystemStorage()
             fs.delete(f"{settings.MEDIA_ROOT}/..{image.path}")

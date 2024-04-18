@@ -1,16 +1,28 @@
 {% extends 'layout/master.html' %}
 
 {% block title %}
-  Image Annotation - Image Contrast
+  Image Annotation - Image Annotation
 {% endblock %}
 
 {% block content %}
   <div class="p-5 mb-4 bg-light border rounded-3">
-    <h1 class="display-5 fw-bold">Image contrast</h1>
-    <div class="d-flex flex-wrap">
-      {% for x in graph %}
-        <img src="data:image/png;base64,{{ x }}" alt="" width="50%" height="auto" />
-      {% endfor %}
-    </div>
+    <h1 class="display-5 fw-bold">Image Annotation</h1>
+    {% for rendering in renderings %}
+      <div class="my-4">
+        <div class="my-2 d-flex flex-wrap justify-content-center">
+          {% for x in rendering.annotated_images %}
+            <img src="data:image/png;base64,{{ x }}" alt="" width="75%" height="auto" />
+          {% endfor %}
+        </div>
+        <div class="my-2 d-flex justify-content-center">
+          <img src="data:image/png;base64,{{ rendering.main_image }}" alt="" width="75%" height="auto" />
+        </div>
+        <div class="my-2 d-flex flex-wrap justify-content-center">
+          {% for x in rendering.contrasting_images %}
+            <img src="data:image/png;base64,{{ x }}" alt="" width="50%" height="auto" />
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
   </div>
 {% endblock %}

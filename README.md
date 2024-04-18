@@ -1,12 +1,4 @@
 # Image Annotation
-<img src="/media/site/illustration.png" alt="">
-
-## Technical information
-**Language**: Python   
-**Framework**: Django   
-
-## Description
-# Image Annotation
 <img src="/media/site/illustration0.png" alt="">
 
 ## Technical information

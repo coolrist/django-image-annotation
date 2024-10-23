@@ -1,4 +1,4 @@
-from a0_image_annotation import settings
+from app import settings
 from urllib import parse
 from ultralytics import YOLO
 from PIL import Image

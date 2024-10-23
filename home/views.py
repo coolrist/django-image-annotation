@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.db.models import Max
 from django.core.files.storage import FileSystemStorage
-from a0_image_annotation import settings
+from app import settings
 from .imageAnnotation import ImageContrast, ObjectDetector
 from .models import Image
 from .utils import is_number
